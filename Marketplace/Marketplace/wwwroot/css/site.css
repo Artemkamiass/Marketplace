@@ -1,22 +1,196 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    background-color: rgb(241, 166, 166);
+}
+
+.header-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 10px 0;
+}
+
+.navbar {
+    color: black;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 10px;
+    border: none;
+}
+
+.search-bar {
+    width: 500px;
+    height: 35px;
+    border-radius: 10px;
+    border: none;
+}
+
+.profile {
+    position: relative; /* Позиционирование относительно ссылки "Профиль" */
+}
+
+.profile-list {
+    width: 150px;
+    background-color: rgb(255, 255, 255);
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    position: absolute;
+    top: 100%; /* Положение прямо под "Профиль" */
+    left: -10px;
+    transition: top 0.3s ease;
+    display: none;
+}
+
+.profile-list ul {
+     list-style-type: none;
+     padding: 0;
+     margin: 0;
+}
+
+.profile-list ul li {
+    padding: 8px 16px;
+}
+
+.profile-list ul li a {
+     color: rgb(18, 18, 18);
+     text-decoration: none;
+     display: block;
+}
+
+#profile:hover + .profile-list {
+    display: block; /* Показываем меню при наведении на "Профиль" */
+}
+
+.profile a {
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+}
+
+.goods {
+}
+
+.list-goods {
+    width: 500px;
+    height: 100%;
+    padding-top: 100px;
+    top: 65px;
+    transition: left 0.3s ease;
+    position: fixed;
+    left: -510px;
+    border: 2px solid #8b8b8b;
+    background-color: white;
+}
+
+ list-goods ul {
+   list-style-type: none;
+   padding: 2px;
+   margin: 0;
+ }
+
+ .list-goods ul li a {
+    color: rgb(18, 18, 18);
+    text-decoration: none;
+    display: block;
+ }
+
+   .list-goods ul li a:hover {
+       color: rgb(105, 103, 103);
+   }
+
+.navbar_exit {
+    background-color: transparent;
+    right: 50px;
+    top: 10px;
+    cursor: pointer;
+    font-size: 30px;
+    border-radius: 10px;
+    border: none;
+    position: absolute;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1 rem;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+.hero {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.product {
+    width: 200px;
+    margin: 1rem;
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 1rem;
+    text-decoration: none;
+    color: #333;
+}
+
+.product img {
+     max-width: 100%;
+     height: auto;
+     margin-bottom: 1rem;
+}
+
+.product a {
+     text-decoration: none;
+     color: black;
+}
+
+.price {
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    height: 80px;
+    background-color: rgb(241, 166, 166);
+    justify-content: center;
+    align-items: center;
 }

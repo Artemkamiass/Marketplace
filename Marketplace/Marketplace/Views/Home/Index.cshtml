@@ -1,4 +1,6 @@
-﻿@section Header{
+﻿@model IEnumerable<Marketplace.Models.Product>
+
+@section Header{
     <div class="header-panel">
 
         <div class="goods">
@@ -27,6 +29,8 @@
                 </ul>
             </div>
         </div>
+
+        <a asp-controller="Product" asp-action="Create">+</a>
     </div>
 }
 
@@ -36,7 +40,30 @@
             <h1>Найди всё для себя и своих близких</h1>
         </section>
         <section class="product-main">
-            <div class="product-list">
+            <table class="product-list">
+                <thead>
+                    <tr> Название </tr>
+                    <tr> Описание </tr>
+                    <tr> Цена </tr>
+                    <tr> Колличество </tr>
+                    <tr> Категория </tr>
+                </thead>
+                <tbody>
+                    @foreach(var product in Model)
+                    {
+                        <tr>
+                            <td>@product.Name</td>
+                            <td>@product.Description</td>
+                            <td>@product.Price</td>
+                            <td>@product.Stock</td>
+                            <td>@product.Category?.Name</td>
+                            <td>@product.Name</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+          @*   
+              <div class="product-list">
                 <div class="product">
                     <a href="#"><img src="../img/jacket.jpg" alt="jacket"></a>
                     <a href="#"><h3>Куртка</h3></a>
@@ -100,7 +127,7 @@
                     <span class="price">Цена: 3500 руб.</span>
                     <button>В корзину</button>
                 </div>
-            </div>
+            </div> *@
         </section>
     </div>
 }

@@ -9,17 +9,19 @@
     <link rel="stylesheet" href="~/homework2.styles.css" asp-append-version="true" />
 </head>
 <body>
-    <header>@RenderSection("Header")
+    <header>@RenderSection("Header", required: false)
         
     </header>
     
     <div>
-        <main>@RenderSection("Main")
+        <main>
+            @RenderSection("Main", required: false)
             
         </main>
     </div>
 
-    <footer> @RenderSection("Footer")
+    <footer>
+        @RenderSection("Footer", required: false)
 
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

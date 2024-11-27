@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
+
 namespace Marketplace.Models
 {
     public class MarketplaceContext : DbContext

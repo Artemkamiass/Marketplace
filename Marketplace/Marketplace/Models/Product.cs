@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.Contracts;
+using System.Collections.Generic;
 
 namespace Marketplace.Models
 {

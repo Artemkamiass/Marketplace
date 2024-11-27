@@ -1,5 +1,61 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model Marketplace.Models.Product
+@section Header {
+    <div class="header-panel">
+
+        <div class="goods">
+            <button class="navbar" id="navbar">☰</button>
+            <div class="list-goods" id="list-goods">
+                <button class="navbar_exit" id="exit">⮾</button>
+                <ul>
+                    <li><a href="#">&#128095;Обувь</a></li>
+                    <li><a href="#">&#129509;Верхняя одежда</a></li>
+                    <li><a href="#">&#128161;Бытовая электроника</a></li>
+                    <li><a href="#">&#128118;Детская одежда</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <input type="text" class="search-bar" placeholder="Найти товар..." />
+
+        <div class="profile">
+            <a href="#" id="profile">&#128100;</a>
+            <div class="profile-list" id="profile-list">
+                <ul>
+                    <li><a href="#">Покупки</a></li>
+                    <li><a href="#">Избранное</a></li>
+                    <li><a href="#">Любимые бренды</a></li>
+                    <li><a href="#">Кошелек</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 }
+
+@section Main{
+<form asp-action="Create" method="post">
+        <div class="form-group">
+            <label asp-for="Name">Название: </label>
+            <input asp-for="Name" class="form-control" requred/>
+        </div>
+        <div class="form-group">
+            <label asp-for="Price">Цена: </label>
+            <input asp-for="Price" class="form-control" type="number" requred />
+        </div>
+        <div class="form-group">
+            <label asp-for="Description">Описание: </label>
+            <textarea asp-for="Description" class="form-control" requred />
+        </div>
+        <div class="form-group">
+            <label asp-for="Stock">Колличество: </label>
+            <input asp-for="Stock" class="form-control" type="number" requred />
+        <div class="form-group">
+             <label asp-for="CategoryId">Название: </label>
+             <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control" type="number" required></select>
+        </div>
+        <buttom type="submit" class="btm btn-primary">Добавить товар</buttom>
+</form>
+}
+
+@section Footer {
+    <p>Проект сделал Артем</p>
+}                 

@@ -19,17 +19,24 @@
         <input type="text" class="search-bar" placeholder="Найти товар..." />
 
         <div class="profile">
-            <a href="#" id="profile">&#128100;</a>
-            <div class="profile-list" id="profile-list">
-                <ul>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a href="#" id="profile">&#128100;</a>
+                <div class="profile-list" id="profile-list">
+                    <ul>
                     <li><a href="#">Покупки</a></li>
                     <li><a href="#">Избранное</a></li>
                     <li><a href="#">Любимые бренды</a></li>
                     <li><a href="#">Кошелек</a></li>
-                </ul>
-            </div>
+                    </ul>
+                </div>
+            }
+            else
+            {
+                
+            }
         </div>
-
+            
         <a asp-controller="Product" asp-action="Create">+</a>
     </div>
 }

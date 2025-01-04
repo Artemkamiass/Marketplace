@@ -160,14 +160,18 @@ h1, h2 {
 }
 
 .hero {
-    
-    padding: 2rem 0;
+    text-align: center;
+    padding: 2rem 0;    
 }
 
 .product-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+.product-main {
+    margin-top: auto;
+    position:center;
 }
 
 .product {

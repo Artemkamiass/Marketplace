@@ -24,16 +24,17 @@
                 <a href="#" id="profile">&#128100;</a>
                 <div class="profile-list" id="profile-list">
                     <ul>
-                    <li><a href="#">Покупки</a></li>
-                    <li><a href="#">Избранное</a></li>
-                    <li><a href="#">Любимые бренды</a></li>
-                    <li><a href="#">Кошелек</a></li>
+                        <li><a href="#">Покупки</a></li>
+                        <li><a href="#">Избранное</a></li>
+                        <li><a href="#">Любимые бренды</a></li>
+                        <li><a href="#">Кошелек</a></li>
+                        <li><a href="@Url.Action("Logout", "Account")">Выйти</a></li> <!-- Ссылка на выход -->
                     </ul>
                 </div>
             }
             else
             {
-                
+                <a href="@Url.Action("Login", "Account")">Войти</a> <!-- Ссылка на страницу входа -->
             }
         </div>
             
@@ -41,103 +42,35 @@
     </div>
 }
 
-@section Main{
-    <div class="container">
-        <section class="hero">
-            <h1>Найди всё для себя и своих близких</h1>
-        </section>
-        <section class="product-main">
-            <table class="product-list">
-                <thead>
-                    <tr> Название </tr>
-                    <tr> Описание </tr>
-                    <tr> Цена </tr>
-                    <tr> Колличество </tr>
-                    <tr> Категория </tr>
-                </thead>
-                <tbody>
-                    @foreach(var product in Model)
-                    {
-                        <tr>
-                            <td>@product.Name</td>
-                            <td>@product.Description</td>
-                            <td>@product.Price</td>
-                            <td>@product.Stock</td>
-                            <td>@product.Category?.Name</td>
-                            <td>@product.Name</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-          @*   
-              <div class="product-list">
-                <div class="product">
-                    <a href="#"><img src="../img/jacket.jpg" alt="jacket"></a>
-                    <a href="#"><h3>Куртка</h3></a>
-                    <p>Куртка летняя, легкая и удобная</p>
-                    <span class="price">Цена: 4500 руб.</span>
-                    <button>В корзину</button>
-                </div>
-                <div class="product">
-                    <a href="#"><img src="../img/boots.jpg" alt="boots"></a>
-                    <a href="#"><h3>Женские ботинки</h3></a>
-                    <p>Удабная женская обувь</p>
-                    <span class="price">Цена: 2500 руб.</span>
-                    <button>В корзину</button>
-                </div>
-                <div class="product">
-                    <a href="#"><img src="../img/children's costume.jpg" alt="children's costume"></a>
-                    <a href="#"><h3>Детский костюм</h3></a>
-                    <p>Удобный костюм для ребенка</p>
-                    <span class="price">Цена: 3500 руб.</span>
-                    <button>В корзину</button>
-                </div>
-                <div class="product">
-                    <a href="#"><img src="../img/children's jacket.jpg" alt="children's jacket"></a>
-                    <a href="#"><h3>Кофта для малыша</h3></a>
-                    <p>Тепла кофта для детей</p>
-                    <span class="price">Цена: 1500 руб.</span>
-                    <button>В корзину</button>
-                </div>
-                <div class="product">
-                    <a href="#"><img src="../img/coat.jpg" alt="coat"></a>
-                    <a href="#"><h3>Пальто</h3></a>
-                    <p>Теплое пальто, качественное и удобное</p>
-                    <span class="price">Цена: 15500 руб.</span>
-                    <button>В корзину</button>
-                </div>
-                <div class="product">
-                    <a href="#"><img src="../img/pants.jpg" alt="pants"></a>
-                    <a href="#"><h3>Джинсы</h3></a>
-                    <p>Джинсы, прочные и модные джинсы</p>
-                    <span class="price">Цена: 5550 руб.</span>
-                    <button>В корзину</button>
-                </div>
-                <div class="product">
-                    <a href="#"><img src="../img/sneakers.jpg" alt="sneakers"></a>
-                    <a href="#"><h3>Кроссовки</h3></a>
-                    <p>Повседневные кроссовки</p>
-                    <span class="price">Цена: 7000 руб.</span>
-                    <button>В корзину</button>
-                </div>
-                <div class="product">
-                    <a href="#"><img src="../img/mixer.jpg" alt="mixer"></a>
-                    <a href="#"><h3>Тестомешалка</h3></a>
-                    <p>Качестваннеая мешалка теста с разными режимами работы</p>
-                    <span class="price">Цена: 9700 руб.</span>
-                    <button>В корзину</button>
-                </div>
-                <div class="product">
-                    <a href="#"><img src="../img/teapot.jpg" alt="teapot"></a>
-                    <a href="#"><h3>Чайник</h3></a>
-                    <p>Чайник-терсмос на 7 литров</p>
-                    <span class="price">Цена: 3500 руб.</span>
-                    <button>В корзину</button>
-                </div>
-            </div> *@
-        </section>
-    </div>
-}
+<div class="container">
+    <section class="hero">
+        <h1>Найди всё для себя и своих близких</h1>
+    </section>
+    <section class="product-main">
+        <table class="product-list">
+            <thead>
+                <tr> Название </tr>
+                <tr> Описание </tr>
+                <tr> Цена </tr>
+                <tr> Колличество </tr>
+                <tr> Категория </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.Name</td>
+                        <td>@product.Description</td>
+                        <td>@product.Price</td>
+                        <td>@product.Stock</td>
+                        <td>@product.Category?.Name</td>
+                        <td>@product.Name</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+</div>
 
 @section Footer{
     <p>Проект сделал Артем</p>

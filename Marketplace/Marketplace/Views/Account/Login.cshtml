@@ -1,0 +1,20 @@
+﻿@model LoginViewModel
+<h2>Вход</h2>
+<form asp-action="Login" method="post">
+    <div class="login-group">
+        <label asp-for="Email">Почта: </label>
+        <input asp-for="Email" class="login-control"/>
+        <span asp-validation-for="Email"></span>
+    </div>
+    <div class="login-group">
+        <label asp-for="Password">Пароль: </label>
+        <input asp-for="Password" class="login-control" type="password"/>
+        <span asp-validation-for="Password"></span>
+    </div>
+    <div class="login-group">
+        <label asp-for="RememberMe" >Запомнить меня: </label>
+        <input asp-for="RememberMe" class="login-control" type="checkbox" />
+    </div>
+    <button type="submit" class="btn-login">Войти</button>
+</form>
+<a href="@Url.Action("Registration", "Account")">Зарегистрироваться</a>

@@ -7,7 +7,6 @@ namespace Marketplace.Models
 {
     public class Product
     {
-        
             [Key]
             public long Id { get; set; }
             [Required]

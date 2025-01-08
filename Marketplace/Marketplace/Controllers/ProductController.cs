@@ -18,24 +18,35 @@ namespace Marketplace.Controllers
         {
             return View(await _marketplaceContext.Products.Include(p => p.Category).ToListAsync());
         }
+        [HttpGet]
         public IActionResult Create()
         {
-            ViewData["Categories"] = new SelectList(_marketplaceContext.Category, "Id", "Name");
+            ViewBag.Categories = new SelectList(_marketplaceContext.Categories, "Id", "Name");
             return View();
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> Create(Product product)
         {
+            await Console.Out.WriteLineAsync("Метод креэйт вызван");
+            foreach (var entry in ModelState)
+            {
+                if (entry.Value.Errors.Count > 0)
+                {
+                    await Console.Out.WriteLineAsync($"{entry.Key}: {string.Join(", ", entry.Value.Errors.Select(e => e.ErrorMessage))}");
+                }
+            }
             if (ModelState.IsValid)
             {
                 _marketplaceContext.Add(product);
                 await _marketplaceContext.SaveChangesAsync();
-                return RedirectToAction("Index");
+                await Console.Out.WriteLineAsync("Сохранение в бд произошло");
+                return RedirectToAction("Index","Home");
             }
-            ViewData["Categories"] = new SelectList(_marketplaceContext.Category, "Id", "Name", product.CategoryId);
+            ViewData["Categories"] = new SelectList(_marketplaceContext.Categories, "Id", "Name", product.CategoryId);
+            await Console.Out.WriteLineAsync("Ошибка валидации модели");
             return View(product);
         }
 
@@ -47,7 +58,7 @@ namespace Marketplace.Controllers
             {
                 return NotFound();
             }
-            ViewData["Categories"] = new SelectList(_marketplaceContext.Category, "Id", "Name", product.CategoryId);
+            ViewData["Categories"] = new SelectList(_marketplaceContext.Categories, "Id", "Name", product.CategoryId);
             return View(product);
         }
 
@@ -61,7 +72,7 @@ namespace Marketplace.Controllers
                 await _marketplaceContext.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["Categories"] = new SelectList(_marketplaceContext.Category, "Id", "Name", product.CategoryId);
+            ViewData["Categories"] = new SelectList(_marketplaceContext.Categories, "Id", "Name", product.CategoryId);
             return View(product);
         }
 

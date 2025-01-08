@@ -16,7 +16,7 @@ namespace Marketplace.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _marketplaceContext.Category.ToListAsync());
+            return View(await _marketplaceContext.Categories.ToListAsync());
         }
 
         public IActionResult Create()
@@ -41,7 +41,7 @@ namespace Marketplace.Controllers
 
         public async Task<IActionResult> Edit(long id)
         {
-            var categories = await _marketplaceContext.Category.FindAsync(id);
+            var categories = await _marketplaceContext.Categories.FindAsync(id);
             if (categories == null)
             {
                 return NotFound();
@@ -64,10 +64,10 @@ namespace Marketplace.Controllers
 
         public async Task<IActionResult> Delete(long id)
         {
-            var category = await _marketplaceContext.Category.FindAsync(id);
+            var category = await _marketplaceContext.Categories.FindAsync(id);
             if (category != null)
             {
-                _marketplaceContext.Category.Remove(category);
+                _marketplaceContext.Categories.Remove(category);
                 await _marketplaceContext.SaveChangesAsync();
             }
             return RedirectToAction("Index");

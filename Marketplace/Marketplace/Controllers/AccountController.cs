@@ -45,19 +45,40 @@ namespace Marketplace.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel LoginViewModel)
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
+            returnUrl ??= Url.Content("~/");
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(LoginViewModel.Email, LoginViewModel.Password, LoginViewModel.RememberMe, false);
-                if (result.Succeeded)
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
                 {
-                    return RedirectToAction("Index", "Home");
+                    var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, false);
+                    if (result.Succeeded)
+                    {
+                        // Проверяем роль пользователя
+                        if (await _userManager.IsInRoleAsync(user, "Admin"))
+                        {
+                            return RedirectToAction("Index", "Admin"); // Редирект на админскую панель
+                        }
+                        else
+                        {
+                            ModelState.AddModelError(string.Empty, "У вас нет прав для входа как администратор.");
+                        }
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "Ошибка при входе.");
+                    }
                 }
-                ModelState.AddModelError(string.Empty, "Неверный логин или пароль.");
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Неверный логин или пароль.");
+                }
             }
-            return View(LoginViewModel);
+            return View(model);
         }
+
 
         // Метод для выхода из системы
         public async Task<IActionResult> Logout()

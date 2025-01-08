@@ -55,7 +55,7 @@ namespace Marketplace
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
-            
+
             app.UseStaticFiles();
             app.UseCookiePolicy(new CookiePolicyOptions
             {

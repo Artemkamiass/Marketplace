@@ -31,6 +31,7 @@ namespace Marketplace.Controllers
         public async Task<IActionResult> Create(Product product)
         {
             await Console.Out.WriteLineAsync("Метод креэйт вызван");
+            await Console.Out.WriteLineAsync($"CategoryId: {product.CategoryId}");
             foreach (var entry in ModelState)
             {
                 if (entry.Value.Errors.Count > 0)

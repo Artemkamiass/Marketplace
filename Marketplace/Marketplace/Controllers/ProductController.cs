@@ -2,16 +2,19 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace Marketplace.Controllers
 {
     public class ProductController : Controller
     {
         private readonly MarketplaceContext _marketplaceContext;
+        private readonly IMapper _mapper;// Внедряем AutoMapper
 
-        public ProductController(MarketplaceContext marketplaceContext)
+        public ProductController(MarketplaceContext marketplaceContext, IMapper mapper)
         {
             _marketplaceContext = marketplaceContext;
+            _mapper = mapper; //инициализация AutoMapper
         }
 
         public async Task<IActionResult> Index()
@@ -28,10 +31,14 @@ namespace Marketplace.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Product product)
+        public async Task<IActionResult> Create(ProductCreateDTO productDto)
         {
+            if(productDto.Photo == null || productDto.Photo.Length == 0)
+            {
+                ModelState.AddModelError("Photo", "Фотография обязательна для загрузки");
+            }
             await Console.Out.WriteLineAsync("Метод креэйт вызван");
-            await Console.Out.WriteLineAsync($"CategoryId: {product.CategoryId}");
+            await Console.Out.WriteLineAsync($"CategoryId: {productDto.CategoryId}");
             foreach (var entry in ModelState)
             {
                 if (entry.Value.Errors.Count > 0)
@@ -41,14 +48,23 @@ namespace Marketplace.Controllers
             }
             if (ModelState.IsValid)
             {
+                var product = _mapper.Map<Product>(productDto); // Маппинг из DTO в сущность 
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/image");
+                var uniqueFileName = Guid.NewGuid().ToString() + "_" + productDto.Photo.FileName;
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using(var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await productDto.Photo.CopyToAsync(fileStream);
+                }
+                product.PhotoPath = $"/image/{uniqueFileName}";
                 _marketplaceContext.Add(product);
                 await _marketplaceContext.SaveChangesAsync();
                 await Console.Out.WriteLineAsync("Сохранение в бд произошло");
                 return RedirectToAction("Index","Home");
             }
-            ViewData["Categories"] = new SelectList(_marketplaceContext.Categories, "Id", "Name", product.CategoryId);
+            ViewData["Categories"] = new SelectList(_marketplaceContext.Categories, "Id", "Name", productDto.CategoryId);
             await Console.Out.WriteLineAsync("Ошибка валидации модели");
-            return View(product);
+            return View(productDto);
         }
 
 

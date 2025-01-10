@@ -1,3 +1,4 @@
+using Marketplace.Mapping;
 using Marketplace.Models;
 using Marketplace.Services;
 using Microsoft.AspNetCore.Identity;
@@ -12,6 +13,8 @@ namespace Marketplace
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddAutoMapper(typeof(MappingProfile));
 
             builder.Services.AddDbContext<MarketplaceContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("MarketplaceDataBase")));

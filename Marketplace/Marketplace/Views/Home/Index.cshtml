@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Marketplace.Models.Product>
 
-@section Header{
+@section Header {
     <div class="header-panel">
 
         <div class="goods">
@@ -37,7 +37,7 @@
                 <a href="@Url.Action("Login", "Account")">Войти</a> <!-- Ссылка на страницу входа -->
             }
         </div>
-            
+
         <a asp-controller="Product" asp-action="Create">+</a>
     </div>
 }
@@ -47,31 +47,23 @@
         <h1>Найди всё для себя и своих близких</h1>
     </section>
     <section class="product-main">
-        <table class="product-list">
-            <thead>
-                <tr> Название </tr>
-                <tr> Описание </tr>
-                <tr> Цена </tr>
-                <tr> Колличество </tr>
-                <tr> Категория </tr>
-            </thead>
-            <tbody>
-                @foreach (var product in Model)
-                {
-                    <tr>
-                        <td>@product.Name</td>
-                        <td>@product.Description</td>
-                        <td>@product.Price</td>
-                        <td>@product.Stock</td>
-                        <td>@product.Category?.Name</td>
-                        <td>@product.Name</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <div class="product-cards">
+        @foreach (var product in Model)
+        {
+            <a href="@Url.Action("Details", "Product", new {id=product.Id})" class="product-card">
+                <div class="product-image">
+                    <img src="@product.PhotoPath" alt="@product.Name"/>
+                </div>
+                <div class="product-details">
+                    <p class="price">@product.Price руб.</p>
+                    <h2 class="name">@product.Name</h2>
+                </div>
+            </a>
+        }
+        </div>
     </section>
 </div>
 
-@section Footer{
+@section Footer {
     <p>Проект сделал Артем</p>
 }                 

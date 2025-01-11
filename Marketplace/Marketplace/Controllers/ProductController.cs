@@ -103,5 +103,15 @@ namespace Marketplace.Controllers
             }
             return RedirectToAction("Index");
         }
+        
+        public async Task<IActionResult> Details(long id)
+        {
+            var product = _marketplaceContext.Products.Find(id);
+            if (product != null)
+            {
+                return View(product);
+            }
+            return NotFound();
+        }
     }
 }

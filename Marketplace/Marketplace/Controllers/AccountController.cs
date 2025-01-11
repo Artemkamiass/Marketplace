@@ -63,7 +63,7 @@ namespace Marketplace.Controllers
                         }
                         else
                         {
-                            ModelState.AddModelError(string.Empty, "У вас нет прав для входа как администратор.");
+                            return RedirectToAction("Index", "Home");
                         }
                     }
                     else

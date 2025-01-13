@@ -27,7 +27,6 @@ body {
     display:flex;
     flex-direction: column;
     min-height: 100%;
-    margin: 0;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -151,7 +150,6 @@ header {
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
-    margin: 0 auto;
     padding: 20px;
 }
 
@@ -185,14 +183,26 @@ h1, h2 {
     background-color: white;
     height: 400px;
     width: 300px;
+    text-decoration: none;
+    color: black;
+}
+.product-details {
+    text-align: left;
+    
+}
+.name{
+    text-align: left;
+}
+.points{
+    text-align: left;
 }
 
 .product-card img {
-     max-width: 100%;
-     height: auto;
-     margin-bottom: 1rem;
-     border-radius: 5px;
-     height: 200px;
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    height: 200px;
 }
 
 .product-card h2{
@@ -204,15 +214,12 @@ h1, h2 {
     font-weight: bold;
 }
 
-.product-card a {
-     text-decoration: none;
-     color: black;
-}
 
 .price {
     font-weight: bold;
     margin-bottom: 1rem;
 }
+
 
 footer {
     margin-top:auto;   
@@ -224,3 +231,63 @@ footer {
     align-items: center;
     display: flex;
 }
+
+.login-group {
+    display: flex;
+    flex-direction: column; /* Вертикальное выравнивание */
+    align-items: center; /* Центрирование по горизонтали */
+    justify-content: center; /* Центрирование по вертикали */
+    position: relative; /* Добавлено для правильной работы transform */
+    left:50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 300px; /* Ширина формы */
+}
+
+.btn-login {
+    margin: 0 auto; /* Центрирование кнопки */
+    text-align: center;
+    background-color: #007BFF; /* Синий цвет кнопки */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 25%; /* Фиксированная ширина кнопки */
+}
+
+.a-reg {
+    justify-content: center;
+    display: flex;
+}
+
+.reg-group {
+    display: flex;
+    flex-direction: column; /* Вертикальное выравнивание */
+    align-items: center; /* Центрирование по горизонтали */
+    justify-content: center; /* Центрирование по вертикали */
+    position: relative; /* Добавлено для правильной работы transform */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 300px; /* Ширина формы */
+}
+
+.btn-reg {
+    margin: 0 auto; /* Центрирование кнопки */
+    text-align: center;
+    background-color: #007BFF; /* Синий цвет кнопки */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 25%; /* Фиксированная ширина кнопки */
+}
+

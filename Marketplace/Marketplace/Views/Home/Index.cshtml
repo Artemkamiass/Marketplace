@@ -37,7 +37,9 @@
                 <a href="@Url.Action("Login", "Account")">Войти</a> <!-- Ссылка на страницу входа -->
             }
         </div>
-
+        <div class="profile">
+            <button id="profile">&#128465;</button>
+        </div>
         <a asp-controller="Product" asp-action="Create">+</a>
     </div>
 }
@@ -57,6 +59,7 @@
                 <div class="product-details">
                     <p class="price">@product.Price руб.</p>
                     <h2 class="name">@product.Name</h2>
+                    <h2 class="points">Оценка</h2>
                 </div>
             </a>
         }

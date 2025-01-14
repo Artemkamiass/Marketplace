@@ -16,6 +16,8 @@ namespace Marketplace
 
             builder.Services.AddAutoMapper(typeof(MappingProfile));
 
+            builder.Services.AddSession();
+
             builder.Services.AddDbContext<MarketplaceContext>(options =>
             options.UseNpgsql(builder.Configuration.GetConnectionString("MarketplaceDataBase")));
             // Настройка Identity с требованиями к паролям
@@ -28,10 +30,10 @@ namespace Marketplace
                 options.Password.RequireNonAlphanumeric = true; // Требовать специальные символы
                 options.Password.RequiredLength = 6; // Минимальная длина пароля
             })
+
             .AddEntityFrameworkStores<MarketplaceContext>()
             .AddDefaultTokenProviders();
             var app = builder.Build();
-
 
             using (var scope = app.Services.CreateScope())
             {
@@ -64,8 +66,10 @@ namespace Marketplace
             {
                 Secure = CookieSecurePolicy.Always
             });
+
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSession();
             
 
             app.Run();

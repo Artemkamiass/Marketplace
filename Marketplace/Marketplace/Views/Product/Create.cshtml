@@ -4,31 +4,50 @@
     <div class="header-panel">
 
         <div class="goods">
+
             <button class="navbar" id="navbar">☰</button>
+
             <div class="list-goods" id="list-goods">
+
                 <button class="navbar_exit" id="exit">⮾</button>
+
                 <ul>
                     <li><a href="#">&#128095;Обувь</a></li>
                     <li><a href="#">&#129509;Верхняя одежда</a></li>
                     <li><a href="#">&#128161;Бытовая электроника</a></li>
                     <li><a href="#">&#128118;Детская одежда</a></li>
                 </ul>
+
             </div>
         </div>
 
         <input type="text" class="search-bar" placeholder="Найти товар..." />
 
-        <div class="profile">
-            <a href="#" id="profile">&#128100;</a>
-            <div class="profile-list" id="profile-list">
-                <ul>
-                    <li><a href="#">Покупки</a></li>
-                    <li><a href="#">Избранное</a></li>
-                    <li><a href="#">Любимые бренды</a></li>
-                    <li><a href="#">Кошелек</a></li>
-                </ul>
+            <div class="profile">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a href="#" id="profile">&#128100;</a>
+
+                    <div class="profile-list" id="profile-list">
+
+                        <ul>
+                            <li><a href="#">Покупки</a></li>
+                            <li><a href="#">Избранное</a></li>
+                            <li><a href="#">Любимые бренды</a></li>
+                            <li><a href="#">Кошелек</a></li>
+                            <li><a href="@Url.Action("Logout", "Account")">Выйти</a></li> <!-- Ссылка на выход -->
+                        </ul>
+
+                    </div>
+                }
+                else
+                {
+                    <a href="@Url.Action("Login", "Account")">Войти</a> <!-- Ссылка на страницу входа -->
+                }
             </div>
-        </div>
+        
+
+        <a asp-controller="Cart" asp-action="Index">&#128465;</a>
 
         <a asp-controller="Product" asp-action="Create">+</a>
     </div>
@@ -39,28 +58,34 @@
         <label asp-for="Name">Название: </label>
         <input asp-for="Name" class="form-control" required />
     </div>
+
     <div class="form-group">
         <label asp-for="Price">Цена: </label>
         <input asp-for="Price" class="form-control" type="number" required />
     </div>
+
     <div class="form-group">
         <label asp-for="Description">Описание: </label>
         <textarea asp-for="Description" class="form-control" required></textarea>
     </div>
+
     <div class="form-group">
         <label asp-for="Stock">Колличество: </label>
         <input asp-for="Stock" class="form-control" type="number" required />
     </div>
+
     <div>   
         <label asp-for="Photo"> Фото </label>
         <input asp-for="Photo"  type="file" class="form-control" accept="image/*" required />
     </div>
+
     <div class="form-group">
         <label asp-for="CategoryId">Категория: </label>
         <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-control" required>
-            <option value="">Выберите категорию</option> <!-- пустая опция -->
+        <option value="">Выберите категорию</option> 
         </select>
     </div>
+
     <button type="submit" class="btn btn-primary">Добавить товар</button>
 </form>
 

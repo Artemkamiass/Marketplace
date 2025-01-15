@@ -1,5 +1,89 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model List<Marketplace.Models.CartItem>
+
+@section Header {
+    <div class="header-panel">
+
+        <div class="goods">
+
+            <button class="navbar" id="navbar">☰</button>
+
+            <div class="list-goods" id="list-goods">
+
+                <button class="navbar_exit" id="exit">⮾</button>
+
+                <ul>
+                    <li><a href="#">&#128095;Обувь</a></li>
+                    <li><a href="#">&#129509;Верхняя одежда</a></li>
+                    <li><a href="#">&#128161;Бытовая электроника</a></li>
+                    <li><a href="#">&#128118;Детская одежда</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <input type="text" class="search-bar" placeholder="Найти товар..." />         
+
+            <div class="profile">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a href="#" id="profile">&#128100;</a>
+
+                    <div class="profile-list" id="profile-list">
+
+                        <ul>
+                            <li><a href="#">Покупки</a></li>
+                            <li><a href="#">Избранное</a></li>
+                            <li><a href="#">Любимые бренды</a></li>
+                            <li><a href="#">Кошелек</a></li>
+                            <li><a href="@Url.Action("Logout", "Account")">Выйти</a></li> <!-- Ссылка на выход -->
+                        </ul>
+
+                    </div>
+                }
+                else
+                {
+                    <a href="@Url.Action("Login", "Account")">Войти</a> <!-- Ссылка на страницу входа -->
+                }
+            </div>
+
+        <a asp-controller="Cart" asp-action="Index">&#128465;</a>
+
+        <a asp-controller="Product" asp-action="Create">+</a>
+        
+    </div>
 }
+    <div class="cart">
+
+        <section class="hero">
+            <h1>Товары в вашей корзине</h1>
+        </section>
+
+        <section class="cart-main">
+
+            <div class="cart-cards">
+
+                @foreach (var product in Model)
+                {
+                    <a href="@Url.Action("Index", "Cart", new {id=product.ProductId})" class="cart-card">
+                        <div class="cart-image">
+                            <img src="@product.PhotoPath" alt="@product.Name" />
+                        </div>
+
+                        <div class="product-details">
+                            <p class="price">@product.Price руб.</p>
+                            <h2 class="name">@product.Name</h2>
+                            <h2 class="points">Оценка</h2>
+                        </div>
+                    </a>
+                }
+            </div>
+
+        </section>
+    </div>
+
+
+
+@section Footer {
+    <p>Проект сделал Артем</p>
+}               

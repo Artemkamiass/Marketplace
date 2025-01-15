@@ -1,27 +1,42 @@
 ﻿@model RegisterViewModel
-<h2>Регистрация</h2>
+
+<section class="heading">
+    <h2>Регистрация</h2>
+</section>
+
+<div class="reg-log-main">
+
 <form asp-action="Registration" method="post">
+
     <div class="reg-group">
         <label asp-for="Email">Почта: </label>
         <input asp-for="Email" class="reg-control" />
         <span asp-validation-for="Email"></span>
     </div>
+
     <div class="reg-group">
         <label asp-for="Password">Пароль: </label>
         <input asp-for="Password" class="reg-control" type="password"/>
         <span asp-validation-for="Password"></span>
     </div>
+
     <div class="reg-group">
-        <label asp-for="ConfirmPassword">Пароль: </label>
+        <label asp-for="ConfirmPassword">Повторите пароль: </label>
         <input asp-for="ConfirmPassword" class="reg-control" type="password" />
         <span asp-validation-for="ConfirmPassword"></span>
     </div>
+
     <div asp-validation-summary="All" class="text-danger"></div>
+
     <div class="btn-reg">
         <button type="submit" class="btn-reg">Зарегистрироваться</button>
     </div>
+
 </form>
+
 <a href="@Url.Action("Login", "Account")" class="a-reg">Войти</a>
+
+</div>
 
 @section Scripts {
     @{

@@ -65,18 +65,27 @@
 
             @foreach (var product in Model)
             {
-                <a href="@Url.Action("Details", "Product", new {id=product.Id})" class="product-card">
-                    <div class="product-image">
-                        <img src="@product.PhotoPath" alt="@product.Name"/>
-                    </div>
+                <div class="product-c">
 
-                    <div class="product-details">
-                        <p class="price">@product.Price руб.</p>
-                        <h2 class="name">@product.Name</h2>
-                        <h2 class="points">Оценка</h2>
-                    </div>
-                </a>
+                    <a href="@Url.Action("Details", "Product", new {id=product.Id})" class="product-card">
+
+                        <div class="product-image">
+                            <img src="@product.PhotoPath" alt="@product.Name"/>
+                        </div>
+
+                        <div class="product-details">
+                            <p class="price">@product.Price руб.</p>
+                            <h2 class="name">@product.Name</h2>
+                            <h2 class="points">Оценка</h2>
+                        </div>             
+                
+                    </a>
+
+                    <a asp-controller="Cart" asp-action="AddToCart" class="cart-a">🛒</a>
+
+                </div>
             }
+
         </div>
 
     </section>

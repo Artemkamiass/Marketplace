@@ -52,7 +52,7 @@ namespace Marketplace.Controllers
             }
             SaveCart(cart);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Cart");
         }
 
         public IActionResult RemoveFromCart(long productId)

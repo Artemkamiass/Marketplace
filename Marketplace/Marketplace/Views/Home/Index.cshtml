@@ -1,7 +1,13 @@
-﻿@model IEnumerable<Marketplace.Models.Product>
+﻿@model IEnumerable<Marketplace.Models.Product> 
+
+@{
+    var cart = (int)ViewData["QuantityItems"];
+}
 
 @section Header {
     <div class="header-panel">
+
+        <a class="name-market" href="@Url.Action("Index", "Home")"><h2>Marketplace</h2></a>
 
         <div class="goods">
 
@@ -46,8 +52,10 @@
                 <a href="@Url.Action("Login", "Account")">Войти</a> <!-- Ссылка на страницу входа -->
             }
         </div>
-     
-        <a asp-controller="Cart" asp-action="Index">&#128465;</a>
+        
+        <a calss="cart-icon" asp-controller="Cart" asp-action="Index">&#128465; 
+            <p>@cart</p>
+        </a>
 
         <a asp-controller="Product" asp-action="Create">+</a>
     </div>
@@ -55,33 +63,48 @@
 
 <div class="container">
 
+    <!-- Заголовок секции с приветствием -->
     <section class="hero">
-        <h1>Найди всё для себя и своих близких</h1>
+        <h1 class="hero-title">Найди всё для себя и своих близких</h1>
     </section>
 
+    <!-- Основной контейнер для продуктов -->
     <section class="product-main">
 
+        <!-- Контейнер для карточек продуктов -->
         <div class="product-cards">
 
             @foreach (var product in Model)
             {
                 <div class="product-c">
 
-                    <a href="@Url.Action("Details", "Product", new {id=product.Id})" class="product-card">
+                    <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="product-card">
 
                         <div class="product-image">
-                            <img src="@product.PhotoPath" alt="@product.Name"/>
+                            <img src="@product.PhotoPath" alt="@product.Name" class="product-img" />
                         </div>
 
                         <div class="product-details">
-                            <p class="price">@product.Price руб.</p>
-                            <h2 class="name">@product.Name</h2>
-                            <h2 class="points">Оценка</h2>
-                        </div>             
-                
+                            <p class="price product-item-price">@product.Price руб.</p>
+                            <h2 class="name product-item-name">@product.Name</h2>
+                            <h2 class="points product-item-rating">Оценка:</h2>
+                        </div>
+
                     </a>
 
-                    <a asp-controller="Cart" asp-action="AddToCart" class="cart-a">🛒</a>
+                    <div class="cart-info">
+                        @* Показываем количество товара в корзине, если оно больше 0 *@
+                        @if (ViewData["ProductQuantity_" + product.Id] != null)
+                        {
+                            var quantity = (int)ViewData["ProductQuantity_" + product.Id];
+                            if (quantity > 0)
+                            {
+                                <p class="cart-quantity">Количество в корзине: @quantity</p>
+                            }
+                        }
+
+                        <a asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@product.Id" class="cart-a">🛒</a>
+                    </div>
 
                 </div>
             }
@@ -91,6 +114,7 @@
     </section>
 
 </div>
+
 
 @section Footer {
     <p>Проект сделал Артем</p>

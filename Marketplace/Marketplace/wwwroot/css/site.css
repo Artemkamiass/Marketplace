@@ -153,71 +153,94 @@ header {
     padding: 20px;
 }
 
+
 h1, h2 {
     text-align: center;
 }
-
-.hero {
-    text-align: center;
-    padding: 2rem 0;    
+.name-market{
+    text-decoration: none;
 }
 
+.cart-icon{
+    text-decoration: none;
+}
+
+/* Заголовок секции */
+.hero-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Основной контейнер для продуктов */
 .product-main {
-    margin-top: auto;
-    position:center;
-}
-.product-cards{
-    display: grid;
-    grid-template-columns: repeat(5,1fr);
-    gap: 20px;
-    flex-wrap: wrap;
-    justify-content:center;
+    padding: 20px;
 }
 
-.product-card {
-    text-align: center;
-    border: 1px solid #ddd;
-    border-radius: 15px;
-    padding: 15px;
-    text-decoration: none;
-    background-color: white;
-    height: 400px;
-    width: 300px;
-    text-decoration: none;
+/* Контейнер для карточек продуктов */
+.product-cards {
+    display: flex;
+    flex-wrap: wrap; /* Позволяет карточкам переноситься на новую строку */
+    gap: 20px; /* Отступ между карточками */
+}
+
+/* Стили для карточки продукта */
+.product-c {
+    flex: 1 1 calc(20% - 20px); /* Ширина карточки с учетом отступов */
+    display: flex;
+    flex-direction: column; /* Вертикальное расположение элементов внутри карточки */
+    border: 1px solid #ddd; /* Граница вокруг карточки */
+    border-radius: 8px; /* Скругление углов */
+    overflow: hidden; /* Скрываем переполнение */
+    box-shadow: 0 2px 4px;
+}
+
+.product-card{
+    text-decoration:none;
     color: black;
 }
-.product-details {
-    text-align: left;
-    
-}
-.name{
-    text-align: left;
-}
-.points{
-    text-align: left;
-}
-
-.product-card img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 1rem;
-    border-radius: 5px;
+/* Стили для изображения продукта */
+.product-img {
+    width: 100%; /* Полная ширина изображения */
     height: 200px;
 }
 
-.product-card h2{
-    font-size: 18px;
-    margin: 10px 0;
+/* Стили для деталей продукта в карточке */
+.product-details {
+    text-decoration: none;
+    padding: 10px; /* Внутренние отступы для деталей продукта */
 }
 
-.product-card p{
-    font-weight: bold;
+/* Стили для цены продукта */
+.product-item-price {
+    font-size: 16px; /* Размер шрифта цены продукта */
 }
 
+/* Стили для названия продукта */
+.product-item-name {
+    font-size: 18px; /* Размер шрифта названия продукта */
+}
 
-.price {
-    font-weight: bold;
-    margin-bottom: 1rem;
+/* Стили для оценки продукта */
+.product-item-rating {
+    font-size: 14px; /* Размер шрифта оценки продукта */
+}
+
+/* Стили для информации о корзине */
+.cart-info {
+    padding: 10px; /* Внутренние отступы для информации о корзине */
+}
+
+/* Стили для количества товара в корзине */
+.cart-quantity {
+    font-size: 14px; /* Размер шрифта для количества товара в корзине */
+}
+
+/* Стили для ссылки добавления в корзину */
+.cart-a {
+    font-size: 24px; /* Размер шрифта иконки корзины */
+    text-decoration: none;
+    justify-content: center;
+    display: flex;
 }
 
 
@@ -232,22 +255,7 @@ footer {
     display: flex;
 }
 
-.login-group {
-    display: flex;
-    flex-direction: column; /* Вертикальное выравнивание */
-    align-items: center; /* Центрирование по горизонтали */
-    justify-content: center; /* Центрирование по вертикали */
-    position: relative; /* Добавлено для правильной работы transform */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    width: 300px; /* Ширина формы */
-}
-
-.btn-login {
+.btn {
     margin: 0 auto; /* Центрирование кнопки */
     text-align: center;
     background-color: #007BFF; /* Синий цвет кнопки */
@@ -256,45 +264,121 @@ footer {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 25%; /* Фиксированная ширина кнопки */
+    width: min-content; /* Фиксированная ширина кнопки */
+}
+/* регистрация и вход */
+.login-group,
+.reg-group {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column; /* Вертикальное выравнивание */
+    align-items: center; /* Центрирование по горизонтали */
+    justify-content: center; /* Центрирование по вертикали */
+    position: relative; /* Добавлено для правильной работы transform */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 2px 5px;
+    border-radius: 15px;
+    padding: 10px;
 }
 
 .a-reg {
-    justify-content: center;
     display: flex;
+    justify-content: center; /* Центрирование ссылки регистрации */
 }
 
-.reg-group {
-    display: flex;
-    flex-direction: column; /* Вертикальное выравнивание */
-    align-items: center; /* Центрирование по горизонтали */
-    justify-content: center; /* Центрирование по вертикали */
-    position: relative; /* Добавлено для правильной работы transform */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    width: 300px; /* Ширина формы */
-}
-
+.btn-login,
 .btn-reg {
-    margin: 0 auto; /* Центрирование кнопки */
-    text-align: center;
-    background-color: #007BFF; /* Синий цвет кнопки */
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 25%; /* Фиксированная ширина кнопки */
+    @extend .btn; /* Использование общего класса для кнопок */
+    padding: 10px 20px; /* Внутренние отступы кнопки */
+    color: white; /* Цвет текста кнопки */
+    background-color: #0056b3; /* Темно-синий цвет кнопки */
+    border: none; /* Убираем рамку */
+    border-radius: 5px; /* Скругление углов кнопки */
+    cursor: pointer; /* Курсор в виде руки при наведении */
+    font-size: 16px; /* Размер шрифта кнопки */
+    align-items: center;
+    display: flex;
+    justify-content: center; 
+   
 }
 
-.reg-log-main {  
-    margin-top: 8%;
+.reg-log-main {
+    margin-top: 8%; /* Отступ сверху */
+    margin-left: auto; /* Автоматические отступы слева и справа для центрирования */
+    margin-right: auto;
+    width: 20%; /* Ширина блока */
+    height: 30% ;
+    padding: 20px; /* Внутренние отступы */
+    border: 2px solid #ccc; /* Толщина и цвет границы */
+    border-radius: 10px; /* Скругление углов */
+    background-color: #f9f9f9; /* Цвет фона */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Тень для глубины */
 }
 
-.heading{
+.heading {
     margin-top: 10px;
+}
+
+/*Корзина*/
+
+. /* Заголовок секции */
+.hero-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Основной контейнер корзины */
+.cart-main {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+/* Контейнер для карточек товаров */
+.cart-cards {
+    display: flex;
+    flex-direction: column; /* Вертикальное расположение карточек */
+    gap: 15px; /* Отступ между карточками */
+}
+
+/* Стили для карточки товара */
+.cart-card {
+    display: flex; /* Используем flexbox для расположения изображения и деталей */
+    padding: 10px;
+    border: 1px solid #ddd; /* Граница вокруг карточки */
+    border-radius: 8px; /* Скругление углов */
+    text-decoration: none; /* Убираем подчеркивание у ссылки */
+    color: inherit; /* Унаследовать цвет текста от родителя */
+}
+
+/* Стили для изображения товара */
+.photo-cart {
+    height: 80px; /* Высота изображения товара */
+    width: auto; /* Автоматическая ширина для сохранения пропорций */
+    border-radius: 5px; /* Скругление углов изображения */
+}
+
+/* Стили для деталей товара в карточке */
+.cart-details {
+    display: flex;
+    flex-direction: column; /* Вертикальное расположение текста */
+    justify-content: center; /* Центрирование по вертикали */
+    margin-left: 10px; /* Отступ слева от изображения */
+}
+
+/* Стили для цены товара */
+.cart-item-price {
+    font-size: 16px; /* Размер шрифта цены товара */
+    color: #007BFF; /* Цвет цены (синий) */
+}
+
+/* Стили для названия товара */
+.cart-item-name {
+    font-size: 18px; /* Размер шрифта названия товара */
+}
+
+/* Стили для оценки товара */
+.cart-item-rating {
+    font-size: 14px; /* Размер шрифта оценки товара */
 }

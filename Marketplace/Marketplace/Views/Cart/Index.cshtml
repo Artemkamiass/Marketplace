@@ -3,6 +3,8 @@
 @section Header {
     <div class="header-panel">
 
+        <a class="name-market" href="@Url.Action("Index", "Home")"><h2>Marketplace</h2></a>
+
         <div class="goods">
 
             <button class="navbar" id="navbar">☰</button>
@@ -53,35 +55,39 @@
         
     </div>
 }
-    <div class="cart">
+<div class="cart">
 
-        <section class="hero">
-            <h1>Товары в вашей корзине</h1>
-        </section>
+    <!-- Заголовок секции с товарами в корзине -->
+    <section class="hero">
+        <h1 class="hero-title">Товары в вашей корзине</h1>
+    </section>
 
-        <section class="cart-main">
+    <!-- Основной контейнер для корзины -->
+    <section class="cart-main">
 
-            <div class="cart-cards">
+        <!-- Контейнер для карточек товаров в корзине -->
+        <div class="cart-cards">
 
-                @foreach (var product in Model)
-                {
-                    <a href="@Url.Action("Index", "Cart", new {id=product.ProductId})" class="cart-card">
-                        <div class="cart-image">
-                            <img src="@product.PhotoPath" alt="@product.Name" />
-                        </div>
+            @foreach (var product in Model)
+            {
+                <a href="@Url.Action("Index", "Cart", new { id = product.ProductId })" class="cart-card">
+                    <div class="cart-image">
+                        <img src="@product.PhotoPath" alt="@product.Name" class="photo-cart" />
+                    </div>
 
-                        <div class="product-details">
-                            <p class="price">@product.Price руб.</p>
-                            <h2 class="name">@product.Name</h2>
-                            <h2 class="points">Оценка</h2>
-                        </div>                 
-                    </a>
-                }
+                    <div class="cart-details">
+                        <p class="price cart-item-price">@product.Price руб.</p>
+                        <h2 class="name cart-item-name">@product.Name</h2>
+                        <h2 class="points cart-item-rating">Оценка:</h2>
+                    </div>
+                </a>
+            }
 
-            </div>
+        </div>
 
-        </section>
-    </div>
+    </section>
+</div>
+
 
 @section Footer {
     <p>Проект сделал Артем</p>

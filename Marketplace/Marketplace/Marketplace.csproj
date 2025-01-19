@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Home\Search.cshtml" />
+    <Content Include="Views\Home\Search.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

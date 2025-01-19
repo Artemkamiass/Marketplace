@@ -55,7 +55,7 @@ namespace Marketplace.Controllers
             }
 
             var results = _marketplaceContext.Products.Where(p => p.Name.Contains(query)).ToList();
-            return RedirectToAction("Search", "Home", results);
+            return View("Search", results);
         }
     }
 }

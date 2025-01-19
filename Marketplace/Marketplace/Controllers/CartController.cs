@@ -70,6 +70,27 @@ namespace Marketplace.Controllers
             return RedirectToAction("Index", "Cart");
         }
 
+        [HttpPost]
+        public IActionResult UpdateQuantity(long productId, int value)
+        {
+            var cart = GetCart();
+
+            var itemToRemove = cart.FirstOrDefault(c => c.ProductId == productId);
+            if(itemToRemove != null)
+            {
+                Console.WriteLine(itemToRemove.Quantity);
+                itemToRemove.Quantity += value;
+                Console.WriteLine(itemToRemove.Quantity);
+                if (itemToRemove.Quantity <= 0)
+                {
+                    cart.Remove(itemToRemove);
+                }
+            }        
+
+            SaveCart(cart);
+            return RedirectToAction("Index", "Cart");
+        }
+
         public IActionResult Index()
         {
             return View(GetCart());

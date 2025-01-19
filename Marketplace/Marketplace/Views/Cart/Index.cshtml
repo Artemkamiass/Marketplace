@@ -70,17 +70,38 @@
 
             @foreach (var product in Model)
             {
-                <a href="@Url.Action("Index", "Cart", new { id = product.ProductId })" class="cart-card">
-                    <div class="cart-image">
+                <div class="cart-card">
+                    <a href="@Url.Action("Index", "Cart", new { id = product.ProductId })" class="cart-image">
                         <img src="@product.PhotoPath" alt="@product.Name" class="photo-cart" />
-                    </div>
+                    </a>
 
                     <div class="cart-details">
                         <p class="price cart-item-price">@product.Price руб.</p>
                         <h2 class="name cart-item-name">@product.Name</h2>
                         <h2 class="points cart-item-rating">Оценка:</h2>
+
+                        <div class="cart-item-controls">
+                            <!-- Кнопка "Минус" -->
+                            <form asp-controller="Cart" asp-action="UpdateQuantity" method="post">
+                                <input type="hidden" name="productId" value="@product.ProductId" />
+                                <input type="hidden" name="value" value="-1" />
+                                <button type="submit" class="btn-minus" @(product.Quantity == 1 ? "disabled" : "")>-</button>
+                            </form>
+                            <span class="cart-item-quantity">@product.Quantity</span>
+                            <form asp-controller="Cart" asp-action="UpdateQuantity" method="post">
+                                <input type="hidden" name="productId" value="@product.ProductId" />
+                                <input type="hidden" name="value" value="1" />
+                                <button type="submit" class="btn-plus">+</button>
+                            </form>
+
+                            <form asp-controller="Cart" asp-action="RemoveFromCart" method="post">
+                                <input type="hidden" name="productId" value="@product.ProductId" />                              
+                                <button type="submit" class="btn-delete">Удалить</button>
+                            </form>
+                        </div>
+
                     </div>
-                </a>
+                </div>
             }
 
         </div>

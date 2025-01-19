@@ -21,6 +21,7 @@ namespace Marketplace.Controllers
         {
             return View(await _marketplaceContext.Products.Include(p => p.Category).ToListAsync());
         }
+
         [HttpGet]
         public IActionResult Create()
         {

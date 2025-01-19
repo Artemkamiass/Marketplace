@@ -28,7 +28,10 @@
 
         </div>
 
-        <input type="text" class="search-bar" placeholder="Найти товар..." />
+        <form asp-controller="Home" asp-action="Search" method="get">
+            <input type="text" name="query" placeholder="Найти товар..." />
+            <button type="submit" class="btn-search">🔍</button>
+        </form>
 
         <div class="profile">
             @if (User.Identity.IsAuthenticated)

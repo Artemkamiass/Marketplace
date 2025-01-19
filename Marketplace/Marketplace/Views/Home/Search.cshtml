@@ -1,0 +1,128 @@
+﻿@model IEnumerable<Marketplace.Models.Product>
+
+@{
+    var cart = (int)ViewData["QuantityItems"];
+}
+
+@section Header {
+    <div class="header-panel">
+
+        <a class="name-market" href="@Url.Action("Index", "Home")"><h2>Marketplace</h2></a>
+
+        <div class="goods">
+
+            <button class="navbar" id="navbar">☰</button>
+
+            <div class="list-goods" id="list-goods">
+
+                <button class="navbar_exit" id="exit">⮾</button>
+
+                <ul>
+                    <li><a href="#">&#128095;Обувь</a></li>
+                    <li><a href="#">&#129509;Верхняя одежда</a></li>
+                    <li><a href="#">&#128161;Бытовая электроника</a></li>
+                    <li><a href="#">&#128118;Детская одежда</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <input type="text" class="search-bar" placeholder="Найти товар..." />
+
+        <div class="profile">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <a href="#" id="profile">&#128100;</a>
+
+                <div class="profile-list" id="profile-list">
+
+                    <ul>
+                        <li><a href="#">Покупки</a></li>
+                        <li><a href="#">Избранное</a></li>
+                        <li><a href="#">Любимые бренды</a></li>
+                        <li><a href="#">Кошелек</a></li>
+                        <li><a href="@Url.Action("Logout", "Account")">Выйти</a></li> <!-- Ссылка на выход -->
+                    </ul>
+
+                </div>
+            }
+            else
+            {
+                <a href="@Url.Action("Login", "Account")">Войти</a> <!-- Ссылка на страницу входа -->
+            }
+        </div>
+
+        <a calss="cart-icon" asp-controller="Cart" asp-action="Index">
+            &#128465;
+            <p>@cart</p>
+        </a>
+
+        <a asp-controller="Product" asp-action="Create">+</a>
+    </div>
+}
+
+@if (!Model.Any())
+{
+    <p>Не найдено</p>
+}
+else
+{   
+    <div class="container">
+
+        <!-- Заголовок секции с приветствием -->
+        <section class="hero">
+            <h1 class="hero-title">Найди всё для себя и своих близких</h1>
+        </section>
+
+        <!-- Основной контейнер для продуктов -->
+        <section class="product-main">
+
+            <!-- Контейнер для карточек продуктов -->
+            <div class="product-cards">
+
+                @foreach (var product in Model)
+                {
+                    <div class="product-c">
+
+                        <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="product-card">
+
+                            <div class="product-image">
+                                <img src="@product.PhotoPath" alt="@product.Name" class="product-img" />
+                            </div>
+
+                            <div class="product-details">
+                                <p class="price product-item-price">@product.Price руб.</p>
+                                <h2 class="name product-item-name">@product.Name</h2>
+                                <h2 class="points product-item-rating">Оценка:</h2>
+                            </div>
+
+                        </a>
+
+                        <div class="cart-info">
+                            @* Показываем количество товара в корзине, если оно больше 0 *@
+                            @if (ViewData["ProductQuantity_" + product.Id] != null)
+                            {
+                                var quantity = (int)ViewData["ProductQuantity_" + product.Id];
+                                if (quantity > 0)
+                                {
+                                    <p class="cart-quantity">Количество в корзине: @quantity</p>
+                                }
+                            }
+
+                            <a asp-controller="Cart" asp-action="AddToCart" asp-route-productId="@product.Id" class="cart-a">🛒</a>
+                        </div>
+
+                    </div>
+                }
+
+            </div>
+
+        </section>
+
+    </div>
+}
+
+@section Footer {
+    <p>Проект сделал Артем</p>
+}                 

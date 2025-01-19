@@ -46,5 +46,16 @@ namespace Marketplace.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult Search(string query)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+            {
+                return RedirectToAction("Index");
+            }
+
+            var results = _marketplaceContext.Products.Where(p => p.Name.Contains(query)).ToList();
+            return RedirectToAction("Search", "Home", results);
+        }
     }
 }

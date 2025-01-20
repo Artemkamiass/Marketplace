@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Marketplace.Models.Product> 
 
 @{
-    var cart = (int)ViewData["QuantityItems"];
+    var cart = ViewData["QuantityItems"] != null ? (int)ViewData["QuantityItems"] : 0;
 }
 
 @section Header {
@@ -70,7 +70,27 @@
     <section class="hero">
         <h1 class="hero-title">Найди всё для себя и своих близких</h1>
     </section>
+    <!-- Фильтры товаров-->
+    <div class="filter-panel">
 
+        <form asp-action="Index" asp-controller="Home" method="get">
+
+            <label for="categoryId">Категории</label>
+
+            <select name="categoryId">
+                <option value="">Все</option>
+                @foreach(var category in (List<Marketplace.Models.Category>)ViewData["Categories"])
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </select>
+
+            <input type="number" name="min" step="0.1" placeholder="Минимальная цена"/>
+            <input type="number" name="max" step="0.1" placeholder="Максимальная цена"/>
+            <button type="submit">Применить</button>
+        </form>
+
+    </div>
     <!-- Основной контейнер для продуктов -->
     <section class="product-main">
 

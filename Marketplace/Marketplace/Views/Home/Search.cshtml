@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Marketplace.Models.Product>
 
 @{
-    var cart = (int)ViewData["QuantityItems"];
+    var cart = ViewData["QuantityItems"] != null ? (int)ViewData["QuantityItems"] : 0;
 }
 
 @section Header {

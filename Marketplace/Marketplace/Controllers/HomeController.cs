@@ -28,9 +28,25 @@ namespace Marketplace.Controllers
             _marketplaceContext = marketplaceContext;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            var products = await _marketplaceContext.Products.Include(p => p.Category).ToListAsync();
+        public async Task<IActionResult> Index(long? categoryId, decimal? min, decimal? max)
+        {   
+            var productsQuery = _marketplaceContext.Products.Include(prQuery =>  prQuery.Category).AsQueryable();
+            if (categoryId.HasValue)
+            {
+                productsQuery = productsQuery.Where(q => q.CategoryId == categoryId.Value);
+            }
+
+            if (min.HasValue)
+            {
+                productsQuery =  productsQuery.Where(q => q.Price >= min.Value);
+            }
+
+            if (max.HasValue)
+            {
+                productsQuery = productsQuery.Where(q => q.Price <= max.Value);
+            }
+
+            var products = await productsQuery.ToListAsync();
             var cart = GetCart();
             foreach (var product in products)
             {
@@ -38,6 +54,7 @@ namespace Marketplace.Controllers
                 ViewData["ProductQuantity_" + product.Id] = quantity;
             }
             ViewData["QuantityItems"] = cart.Count;
+            ViewData["Categories"] = await _marketplaceContext.Categories.ToListAsync();
             return View(products);
         }
 
@@ -54,7 +71,7 @@ namespace Marketplace.Controllers
                 return RedirectToAction("Index");
             }
 
-            var results = _marketplaceContext.Products.Where(p => p.Name.Contains(query)).ToList();
+            var results = _marketplaceContext.Products.ToList().Where(p => p.Name.Contains(query, StringComparison.OrdinalIgnoreCase )).ToList();
             return View("Search", results);
         }
     }

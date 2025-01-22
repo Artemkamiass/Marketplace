@@ -48,11 +48,13 @@ namespace Marketplace.Controllers
 
             var products = await productsQuery.ToListAsync();
             var cart = GetCart();
+
             foreach (var product in products)
             {
                 var quantity = cart.FirstOrDefault(p => p.ProductId == product.Id)?.Quantity ?? 0;
                 ViewData["ProductQuantity_" + product.Id] = quantity;
             }
+
             ViewData["QuantityItems"] = cart.Count;
             ViewData["Categories"] = await _marketplaceContext.Categories.ToListAsync();
             return View(products);

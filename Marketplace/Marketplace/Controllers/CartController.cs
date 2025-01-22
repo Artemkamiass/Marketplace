@@ -9,6 +9,7 @@ namespace Marketplace.Controllers
     public class CartController : Controller
     {
         private const string _cartSessionKey = "Cart";
+
         private List<CartItem> GetCart() 
         { 
             var cart = HttpContext.Session.GetString(_cartSessionKey);
@@ -29,12 +30,16 @@ namespace Marketplace.Controllers
         public IActionResult AddToCart(long productId)
         {
             var product = GetProductById(productId);
+
             if(product == null)
             {
                 return NotFound();
             }
+
             var cart = GetCart();
+
             var existingItem = cart.FirstOrDefault(p => p.ProductId == productId);
+
             if(existingItem != null)
             {
                 existingItem.Quantity++ ;
@@ -50,6 +55,7 @@ namespace Marketplace.Controllers
                     PhotoPath = product.PhotoPath
                 }) ;
             }
+
             SaveCart(cart);
 
             return RedirectToAction("Index", "Cart");

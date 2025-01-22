@@ -29,7 +29,6 @@ namespace Marketplace.Controllers
             return View();
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(ProductCreateDTO productDto)
@@ -38,8 +37,11 @@ namespace Marketplace.Controllers
             {
                 ModelState.AddModelError("Photo", "Фотография обязательна для загрузки");
             }
+
             await Console.Out.WriteLineAsync("Метод креэйт вызван");
+
             await Console.Out.WriteLineAsync($"CategoryId: {productDto.CategoryId}");
+
             foreach (var entry in ModelState)
             {
                 if (entry.Value.Errors.Count > 0)
@@ -47,36 +49,51 @@ namespace Marketplace.Controllers
                     await Console.Out.WriteLineAsync($"{entry.Key}: {string.Join(", ", entry.Value.Errors.Select(e => e.ErrorMessage))}");
                 }
             }
+
             if (ModelState.IsValid)
             {
                 var product = _mapper.Map<Product>(productDto); // Маппинг из DTO в сущность 
+
                 var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/image");
+
                 var uniqueFileName = Guid.NewGuid().ToString() + "_" + productDto.Photo.FileName;
+
                 var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
                 using(var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     await productDto.Photo.CopyToAsync(fileStream);
                 }
+
                 product.PhotoPath = $"/image/{uniqueFileName}";
+
                 _marketplaceContext.Add(product);
+
                 await _marketplaceContext.SaveChangesAsync();
+
                 await Console.Out.WriteLineAsync("Сохранение в бд произошло");
+
                 return RedirectToAction("Index","Home");
             }
+
             ViewData["Categories"] = new SelectList(_marketplaceContext.Categories, "Id", "Name", productDto.CategoryId);
+
             await Console.Out.WriteLineAsync("Ошибка валидации модели");
+
             return View(productDto);
         }
-
 
         public async Task<IActionResult> Edit(long id)
         {
             var product = await _marketplaceContext.Products.FindAsync(id);
+
             if (product == null)
             {
                 return NotFound();
             }
+
             ViewData["Categories"] = new SelectList(_marketplaceContext.Categories, "Id", "Name", product.CategoryId);
+
             return View(product);
         }
 
@@ -90,24 +107,29 @@ namespace Marketplace.Controllers
                 await _marketplaceContext.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+
             ViewData["Categories"] = new SelectList(_marketplaceContext.Categories, "Id", "Name", product.CategoryId);
+
             return View(product);
         }
 
         public async Task<IActionResult> Delete(long id)
         {
             var product = await _marketplaceContext.Products.FindAsync(id);
+
             if (product != null)
             {
                 _marketplaceContext.Products.Remove(product);
                 await _marketplaceContext.SaveChangesAsync();
             }
+
             return RedirectToAction("Index");
         }
         
         public async Task<IActionResult> Details(long id)
         {
             var product = _marketplaceContext.Products.Find(id);
+
             if (product != null)
             {
                 return View(product);

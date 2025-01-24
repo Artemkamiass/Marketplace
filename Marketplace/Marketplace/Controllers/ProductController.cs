@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using Newtonsoft.Json;
 
 namespace Marketplace.Controllers
 {
@@ -10,6 +11,7 @@ namespace Marketplace.Controllers
     {
         private readonly MarketplaceContext _marketplaceContext;
         private readonly IMapper _mapper;// Внедряем AutoMapper
+        private const string _cartSessionKey = "Cart";
 
         public ProductController(MarketplaceContext marketplaceContext, IMapper mapper)
         {
@@ -125,16 +127,28 @@ namespace Marketplace.Controllers
 
             return RedirectToAction("Index");
         }
-        
+
+        private List<CartItem> GetCart()
+        {
+            var cart = HttpContext.Session.GetString(_cartSessionKey);
+            return cart == null ? new List<CartItem>() : JsonConvert.DeserializeObject<List<CartItem>>(cart);
+        }
+
         public async Task<IActionResult> Details(long id)
         {
-            var product = _marketplaceContext.Products.Find(id);
+            var product = _marketplaceContext.Products.Include(c => c.Category).FirstOrDefault(p => p.Id == id);
+
+            var cart = GetCart();
+
+            ViewData["Categories"] = await _marketplaceContext.Categories.ToListAsync();
+            ViewData["QuantityItems"] = cart.Count;
 
             if (product != null)
             {
                 return View(product);
             }
             return NotFound();
+            
         }
     }
 }

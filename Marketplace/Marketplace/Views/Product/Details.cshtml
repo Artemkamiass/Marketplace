@@ -1,4 +1,8 @@
-﻿
+﻿@model Marketplace.Models.Product
+
+@{
+    var cart = ViewData["QuantityItems"] != null ? (int)ViewData["QuantityItems"] : 0;
+}
 
 @section Header {
     <div class="header-panel">
@@ -13,17 +17,35 @@
 
                 <button class="navbar_exit" id="exit">⮾</button>
 
-                <ul>
-                    <li><a href="#">&#128095;Обувь</a></li>
-                    <li><a href="#">&#129509;Верхняя одежда</a></li>
-                    <li><a href="#">&#128161;Бытовая электроника</a></li>
-                    <li><a href="#">&#128118;Детская одежда</a></li>
-                </ul>
+                <div class="filter-menu">
+                    <form asp-action="Index" asp-controller="Home" method="get">
+
+                        <label>Категории</label>
+
+                        <ul>
+                            <li><a href="@Url.Action("Index", "Home")">Все</a></li>
+
+                            @foreach (var category in (List<Marketplace.Models.Category>)ViewData["Categories"])
+                            {
+
+                                <li><a href="@Url.Action("Index", "Home", new { categoryId = category.Id })">@category.Name</a></li>
+
+                            }
+
+                        </ul>
+
+                    </form>
+
+                </div>
 
             </div>
+
         </div>
 
-        <input type="text" class="search-bar" placeholder="Найти товар..." />
+        <form asp-controller="Home" asp-action="Search" method="get">
+            <input type="text" name="query" placeholder="Найти товар..." />
+            <button type="submit" class="btn-search">🔍</button>
+        </form>
 
         <div class="profile">
 
@@ -49,10 +71,38 @@
             }
         </div>
 
+        <a calss="cart-icon" asp-controller="Cart" asp-action="Index">
+            &#128465;
+            <p>@cart</p>
+        </a>
+
         <a asp-controller="Product" asp-action="Create">+</a>
     </div>
 }
 
+<div class="detail-main">
+
+    <h1>@Model.Name</h1>
+
+    <div class="detail-img">
+        <img src="@Model.PhotoPath" alt="@Model.Name"/>
+    </div>
+
+    <div class="detail-info">
+        <p>Цена: @Model.Price</p>
+        <p>Категория: @Model.Category.Name</p>
+        <p>Описание: @Model.Description</p>
+    </div>
+
+    <div class="add-to-cart">
+        <form asp-controller="Cart" asp-action="AddToCart" method="post">
+            <input type="hidden" name="productId" value="@Model.Id" />
+            <button type="submit">Добавить в корзину</button>
+        </form>
+    </div>
+
+
+</div> 
 
 @section Footer {
     <p>Проект сделал Артем</p>

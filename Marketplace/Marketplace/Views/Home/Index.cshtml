@@ -23,11 +23,13 @@
                         <label>Категории</label>
 
                         <ul>
-                            <li><a href="categoryId=">Все</a></li>
+                            <li><a href="@Url.Action("Index", "Home")">Все</a></li> 
 
                             @foreach (var category in (List<Marketplace.Models.Category>)ViewData["Categories"])
                             {
-                                <li><a href="categoryId=@category.Id">@category.Name</a></li>
+
+                                <li><a href="@Url.Action("Index", "Home", new { categoryId = category.Id })">@category.Name</a></li>
+
                             }
 
                         </ul>
